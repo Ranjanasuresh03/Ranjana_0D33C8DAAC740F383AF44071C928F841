@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Lamp</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .lamp {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .lamp .base {
+      width: 100px;
+      height: 100px;
+      background-color: #333;
+      border-radius: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .lamp .base::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background-color: #f2f2f2;
+      border-radius: 100%;
+    }
+
+    .lamp .pole {
+      width: 20px;
+      height: 80px;
+      background-color: #333;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .lamp .bulb {
+      width: 80px;
+      height: 80px;
+      background-color: #f2f2f2;
+      border-radius: 100%;
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 3;
+    }
+
+    .lamp .bulb::before {
+      content: "";
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      background-color: #e6e6e6;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+    }
+
+    .lamp .bulb::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background-color: #f2f2f2;
+      position: absolute;
+      top: 35px;
+      left: 35px;
+    }
+
+    .lamp .light {
+      width: 120px;
+      height: 120px;
+      background-color: #e6e6e6;
+      border-radius: 100%;
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+      filter: blur(20px);
+      opacity: 0.6;
+      transition: opacity 0.5s ease;
+    }
+
+    .lamp .light::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background-color: #e6e6e6;
+      border-radius: 100%;
+    }
+
+    .lamp input[type="checkbox"] {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      z-index: 4;
+    }
+
+    .lamp input[type="checkbox"] + label {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      border-radius: 100%;
+      background-color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 4;
+      cursor: pointer;
+    }
+
+    .lamp input[type="checkbox"] + label::before {
+      content: "";
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      background-color: #f2f2f2;
+      transition: transform 0.5s ease;
+    }
+
+    .lamp input[type="checkbox"]:checked + label::before {
+      transform: translateY(40px);
+    }
+  </style>
+</head>
+<body>
+  <div class="lamp">
+    <div class="base"></div>
+    <div class="pole"></div>
+    <div class="bulb"></div>
+    <div class="light"></div>
+    <input type="checkbox" id="switch">
+    <label for="switch"></label>
+  </div>
+  <script>
+    const switchBtn = document.getElementById('switch');
+    const light = document.querySelector('.light');
+
+    switchBtn.addEventListener('change', () => {
+      if (switchBtn.checked) {
+        light.style.opacity = 1;
+      } else {
+        light.style.opacity = 0.6;
+      }
+    });
+  </script>
+</body>
+</html>
